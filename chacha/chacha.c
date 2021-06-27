@@ -31,7 +31,7 @@ static void scramble_diagonal(uint32_t *m) {
 	quarter_round(&m[3], &m[4], &m[9 ], &m[14]);
 }
 
-static uint32_t *cpyblock(uint32_t *b) {
+static uint32_t *cpyblock(const uint32_t *b) {
 	uint32_t *new_block = (uint32_t *) malloc(16);
 	for (int i = 0; i < 16; i++) {
 		new_block[i] = b[i];
@@ -39,13 +39,13 @@ static uint32_t *cpyblock(uint32_t *b) {
 	return new_block;
 }
 
-static void block_addition(uint32_t *b, uint32_t *ob) {
+static void block_addition(uint32_t *b, const uint32_t *ob) {
 	for (int i = 0; i < 16; i++) {
 		b[i] += ob[i];
 	}
 }
 
-uint32_t u8tou32(uint8_t *b8, int s, int lim) {
+uint32_t u8tou32(uint8_t *b8, const int s, const int lim) {
 	uint32_t u32t = b8[s];
 	for (int i = 1; i < 4; i++) {
 		u32t = (s+i > lim) ? (u32t << 8) + 0x00 : (u32t << 8) + b8[s+i];
@@ -53,7 +53,7 @@ uint32_t u8tou32(uint8_t *b8, int s, int lim) {
 	return u32t;
 }
 
-static int strlenu8(uint8_t *m) {
+static int strlenu8(const uint8_t *m) {
 	int i = 0;
 	while (*m++ != '\0')
 		i++;
