@@ -8,7 +8,7 @@ static void populate(uint32_t *c) {
 	}
 }
 
-static int hextoint(char c) {
+static int hextoint(const char c) {
 	return (c < 58) ? c - '0' : c - 87;
 }
 
@@ -20,7 +20,7 @@ static unsigned long long pow(const int b, const int n) {
 	return p;
 }
 
-void parsehex(char *s, uint32_t *c) {
+void parsehex(const char *s, uint32_t *c) {
 	populate(c);
 	for (int j = 0; j < 16; s+=8, j++) {
 		for (int i = 0; i < 8; i++) {
@@ -30,12 +30,12 @@ void parsehex(char *s, uint32_t *c) {
 }
 
 /* flag manipulations */
-uint8_t activate_bit(uint8_t b, short n) {
+uint8_t activate_bit(const uint8_t b, const short n) {
 // activate a bit at the nth position
 	return b | (1 << n);
 }	
 
-int check_bit_mask(uint8_t b, short n) {
+int check_bit_mask(const uint8_t b, const short n) {
 // check if bit at nth position is active
 	return b & (1 << n);
 }
