@@ -80,7 +80,7 @@ void chacha_decrypt(uint32_t *p, uint32_t *b, uint32_t *c) {
 	}
 }
 
-static void printb64(uint32_t *c, const short debug, const short lb) {
+static void printhex(uint32_t *c, const short debug, const short lb) {
 	for (int i = 0; i < 16; i++) {
 		if (!(i%4) && i != 0 && lb)
 			printf("\n");
@@ -97,10 +97,9 @@ static void printb64(uint32_t *c, const short debug, const short lb) {
 static void printp(uint32_t *p) { // print plain text u8 ascii
 	uint8_t print[65], i;
 	for (i = 0; i < 64; p++) {
-		print[i++] = (uint8_t) (*p >> 24);
-		print[i++] = (uint8_t) (*p >> 16);
-		print[i++] = (uint8_t) (*p >> 8 );
-		print[i++] = (uint8_t) (*p >> 0 );
+		for (short j = 3; j >= 0; j--) {
+			print[i++] = (uint8_t) (*p >> 8*j);
+		}
 	}
 	print[i] = '\0';
 	printf("%s", print);
@@ -140,7 +139,7 @@ int main(int argc, char* argv[]) {
 						flag = activate_bit(flag, NONCE);
 						break;
 					case 'o': // offset
-						if (!check_bit_mask(flag, 1)) {
+						if (!check_bit_mask(flag, DECRYPT)) {
 							printf("error: -n can only be used after -d flag \n");
 							return -1;
 						}
@@ -230,7 +229,7 @@ int main(int argc, char* argv[]) {
 
 			chacha_encrypt(plain, b, cipher); // encrypt and put in cipher[]
 
-			printb64(cipher, 0, 0);
+			printhex(cipher, 0, 0);
 		}
 		printf("\n");
 		return 0; // end of encryption
@@ -277,15 +276,3 @@ int main(int argc, char* argv[]) {
 	printf("Prorgam unexpected exit -2 return code \n");
 	return -2; // unexpected return
 }
-
-
-
-
-
-
-
-
-
-
-
-
