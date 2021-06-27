@@ -1,3 +1,4 @@
+/* ChaCha20, a variant of Salsa20 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
@@ -154,6 +155,7 @@ int main(int argc, char* argv[]) {
 						flag = activate_bit(flag, OFFSET);
 						break;
 					case 'h':
+						flag = 0;
 						printf("Usage:\n\tencrypt:\t%s -e <message> -p <passphrase> -n <nonce>\n\tdecrypt:\t%s -d <ciphertext> -p <passphrase> -n <nonce>\n\n\t-e\tencryption flag, must be followed by message to encrypt\n\t\ttype: ascii string\n\t-d\tdecryption flag, must be followed by ciphertext to decrypt\n\t\ttype: hex string\n\t-p\tpassphrase flag, max length is 8 bytes/64 bits\n\t\ttype: ascii string\n\t-n\t(optional) nonce flag, default value: %llu, max 64 bit int\n\t-o\t(optional) offset flag, allows to offset to a certain block, must be an int\n\t-os\t(optional) combines offset with split flag, allows to feed cipher in parts, must be an int\n\n", argv[0], argv[0], nonce);
 						return 0;
 					default:
