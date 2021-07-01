@@ -7,21 +7,21 @@
 #define swap32(A, B) {uint32_t tmp; tmp = *A; *A = *B; *B = tmp;}
 
 uint32_t P[18] = {0x243f6a88l, 0x85a308d3l, 0x13198a2el, 0x03797344l, 0xa4093822l, 0x299f31d0l, 
-				  0x082efa98l, 0xec4e6c89l, 0x452821e6l, 0x38d01377l, 0xbe5466cfl, 0x34e90c6cl, 
-				  0xc0ac29b7l, 0xc97c50ddl, 0x3f84d5d5l, 0xb5470917l, 0x9216d5d9l, 0x8979fb1bl};
+									0x082efa98l, 0xec4e6c89l, 0x452821e6l, 0x38d01377l, 0xbe5466cfl, 0x34e90c6cl, 
+									0xc0ac29b7l, 0xc97c50ddl, 0x3f84d5d5l, 0xb5470917l, 0x9216d5d9l, 0x8979fb1bl};
 
 uint32_t f(uint32_t u32) {
 	return (S[0][u32 >> 24] + 
-		    S[1][(uint8_t) (u32 >> 16)]) ^ 
-	        S[2][(uint8_t) (u32 >> 8)]   + 
-		    S[3][(uint8_t) u32];
+		   		S[1][(uint8_t) (u32 >> 16)]) ^ 
+					S[2][(uint8_t) (u32 >> 8)]   + 
+		    	S[3][(uint8_t) u32];
 }
 static void printhex(uint64_t e) {
 	printf("%08" PRIx64, e);
 }
 
 void blowfish_encrypt(uint32_t *L, uint32_t *R) {
-for (short r = 0; r < 16; r++) {
+	for (short r = 0; r < 16; r++) {
 		*L = *L ^ P[r];
 		*R = f(*L) ^ *R;
 		swap32(L, R);
