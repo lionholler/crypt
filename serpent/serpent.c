@@ -49,10 +49,10 @@ static void k(uint32_t *w, uint32_t (*sk)[4]) { /* key schedule: get subkeys */
 	for (i = 0; i < 33; i++) {
 		p = (32 + 3 - i) % 32;
 		for (k = 0; k < 32; k++) {
-			s = S[p][glue(mask(w[ 0 + i + 8], k),
-						  mask(w[33 + i + 8], k),
-						  mask(w[66 + i + 8], k),
-						  mask(w[99 + i + 8], k))];
+			s = S[p][glue (	mask(w[ 0 + i + 8], k),
+					mask(w[33 + i + 8], k),
+					mask(w[66 + i + 8], k),
+					mask(w[99 + i + 8], k))];
 			for (j = 0; j < 4; j++) {
 				K[33 * j + i] |= ((s >> j) & 0x1) << k;
 			}
